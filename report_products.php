@@ -68,16 +68,18 @@ $offset = $limit * $page;
 
 $entity = $conf->entity;
 
-// Parametros comunes para enlaces (orden, paginacion, export).
-$param  = '&productid='.((int) $productid).'&socid='.((int) $socid);
-$param .= '&date_startday='.((int) dol_print_date($date_start, '%d'));
-$param .= '&date_startmonth='.((int) dol_print_date($date_start, '%m'));
-$param .= '&date_startyear='.((int) dol_print_date($date_start, '%Y'));
-$param .= '&date_endday='.((int) dol_print_date($date_end, '%d'));
-$param .= '&date_endmonth='.((int) dol_print_date($date_end, '%m'));
-$param .= '&date_endyear='.((int) dol_print_date($date_end, '%Y'));
-$param .= '&action=search';
-if ($limit > 0 && $limit != $default_limit) $param .= '&limit='.((int) $limit);
+// Parametros de filtros (SIN action, para no colisionar entre search y export).
+$param_filters  = '&productid='.((int) $productid).'&socid='.((int) $socid);
+$param_filters .= '&date_startday='.((int) dol_print_date($date_start, '%d'));
+$param_filters .= '&date_startmonth='.((int) dol_print_date($date_start, '%m'));
+$param_filters .= '&date_startyear='.((int) dol_print_date($date_start, '%Y'));
+$param_filters .= '&date_endday='.((int) dol_print_date($date_end, '%d'));
+$param_filters .= '&date_endmonth='.((int) dol_print_date($date_end, '%m'));
+$param_filters .= '&date_endyear='.((int) dol_print_date($date_end, '%Y'));
+if ($limit > 0 && $limit != $default_limit) $param_filters .= '&limit='.((int) $limit);
+
+// Para la lista/paginacion (orden, titulos): mantiene action=search.
+$param = $param_filters.'&action=search';
 
 /* === EXPORTACION A EXCEL (antes de cualquier salida HTML) === */
 if ($action == 'export_xlsx' && $is_license_valid) {
@@ -147,7 +149,7 @@ if (($action == 'search' || $action == '') && $is_license_valid) {
 	$rows    = dolisalesreport_get_products_report($db, $date_start, $date_end, $socid, $productid, $entity, $sortfield, $sortorder, $limit, $offset);
 	$totals  = dolisalesreport_get_totals($db, $date_start, $date_end, $socid, $productid, $entity);
 
-	$exporturl = $_SERVER["PHP_SELF"].'?action=export_xlsx'.$param.'&sortfield='.$sortfield.'&sortorder='.$sortorder.'&token='.newToken();
+	$exporturl = $_SERVER["PHP_SELF"].'?action=export_xlsx'.$param_filters.'&sortfield='.$sortfield.'&sortorder='.$sortorder.'&token='.newToken();
 	$morehtmlright = '';
 	if (!empty($user->rights->dolisalesreport->report->export)) {
 		$morehtmlright = '<a class="butAction" href="'.$exporturl.'"><span class="fa fa-file-excel paddingright"></span>'.$langs->trans("ExportToExcel").'</a>';
