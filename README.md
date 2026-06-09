@@ -26,4 +26,4 @@ Las ventas se calculan sobre `llx_facture` + `llx_facturedet`. Como el TPV de Do
 
 ## Licencia (servidor)
 
-El módulo valida contra `https://cv.iflorido.es/licencias/checklicence.php` enviando `key`, `url`, `hash`, `module_slug=dolisalesreport` y `version`. **Es necesario dar de alta el slug `dolisalesreport` en el servidor de licencias.**
+El módulo valida si tiene licencia activa, solicitar en iflorido@gmail.com. **Es necesario dar de alta el slug `dolisalesreport` en el servidor de licencias.**
