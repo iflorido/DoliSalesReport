@@ -85,6 +85,32 @@ $param = $param_filters.'&action=search';
 if ($action == 'export_xlsx' && $is_license_valid) {
 	if (empty($user->rights->dolisalesreport->report->export)) accessforbidden();
 
+	// Diagnostico opcional: anade &debug=1 a la URL para ver el estado de PhpSpreadsheet.
+	if (GETPOSTINT('debug') == 1) {
+		header('Content-Type: text/plain; charset=UTF-8');
+		print "== Diagnostico PhpSpreadsheet ==\n";
+		print "DOL_DOCUMENT_ROOT = ".DOL_DOCUMENT_ROOT."\n";
+		print "PHPEXCELNEW_PATH definida = ".(defined('PHPEXCELNEW_PATH') ? PHPEXCELNEW_PATH : 'NO')."\n\n";
+		$a1 = DOL_DOCUMENT_ROOT.'/includes/phpoffice/phpspreadsheet/src/autoloader.php';
+		$a2 = DOL_DOCUMENT_ROOT.'/includes/Psr/autoloader.php';
+		print "autoloader.php existe = ".(file_exists($a1) ? 'SI' : 'NO')." ($a1)\n";
+		print "Psr/autoloader.php existe = ".(file_exists($a2) ? 'SI' : 'NO')." ($a2)\n";
+		if (defined('PHPEXCELNEW_PATH')) {
+			print "Spreadsheet.php existe = ".(file_exists(PHPEXCELNEW_PATH.'Spreadsheet.php') ? 'SI' : 'NO')." (".PHPEXCELNEW_PATH."Spreadsheet.php)\n";
+		}
+		// Intento de carga
+		if (file_exists($a1)) {
+			require_once $a1;
+			if (file_exists($a2)) require_once $a2;
+			if (defined('PHPEXCELNEW_PATH') && file_exists(PHPEXCELNEW_PATH.'Spreadsheet.php')) require_once PHPEXCELNEW_PATH.'Spreadsheet.php';
+		}
+		print "\nClase Spreadsheet cargada = ".(class_exists('\\PhpOffice\\PhpSpreadsheet\\Spreadsheet') ? 'SI' : 'NO')."\n";
+		print "Clase Xlsx writer cargada = ".(class_exists('\\PhpOffice\\PhpSpreadsheet\\Writer\\Xlsx') ? 'SI' : 'NO')."\n";
+		print "Extension ZipArchive = ".(class_exists('ZipArchive') ? 'SI' : 'NO')."\n";
+		print "Filas a exportar = ".count(dolisalesreport_get_products_report($db, $date_start, $date_end, $socid, $productid, $entity, $sortfield, $sortorder, 0, 0))."\n";
+		exit;
+	}
+
 	$allrows = dolisalesreport_get_products_report($db, $date_start, $date_end, $socid, $productid, $entity, $sortfield, $sortorder, 0, 0);
 	$totals  = dolisalesreport_get_totals($db, $date_start, $date_end, $socid, $productid, $entity);
 

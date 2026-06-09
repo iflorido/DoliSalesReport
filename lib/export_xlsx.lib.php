@@ -26,33 +26,17 @@ function dolisalesreport_export_products_xlsx($rows, $totals, $date_start, $date
 	$datestr = dol_print_date(dol_now(), '%Y%m%d_%H%M');
 	$filename = 'informe_ventas_productos_'.$datestr;
 
-	// Carga de PhpSpreadsheet tal y como lo hace Dolibarr internamente.
-	// Dolibarr define PHPEXCELNEW_PATH = .../includes/phpoffice/phpspreadsheet/src/PhpSpreadsheet/
-	// y NO incluye un autoload.php; registramos un autoloader propio sobre esa ruta.
+	// Carga de PhpSpreadsheet con el metodo OFICIAL de Dolibarr
+	// (igual que core/modules/import/import_xlsx.modules.php).
 	$has_pss = false;
 	if (!class_exists('\\PhpOffice\\PhpSpreadsheet\\Spreadsheet')) {
-		$base = defined('PHPEXCELNEW_PATH') ? PHPEXCELNEW_PATH : (DOL_DOCUMENT_ROOT.'/includes/phpoffice/phpspreadsheet/src/PhpSpreadsheet/');
-		// base apunta a .../src/PhpSpreadsheet/ ; el prefijo de namespace cuelga de ahi.
-		if (is_dir($base)) {
-			spl_autoload_register(function ($class) use ($base) {
-				$prefix = 'PhpOffice\\PhpSpreadsheet\\';
-				$len = strlen($prefix);
-				if (strncmp($prefix, $class, $len) !== 0) return;
-				$relative = substr($class, $len);
-				$file = rtrim($base, '/').'/'.str_replace('\\', '/', $relative).'.php';
-				if (file_exists($file)) require $file;
-			});
-			// Dependencia Psr\SimpleCache que PhpSpreadsheet necesita.
-			$simplecache = dirname(rtrim($base, '/'), 2).'/simple-cache/';
-			if (is_dir($simplecache)) {
-				spl_autoload_register(function ($class) use ($simplecache) {
-					$prefix = 'Psr\\SimpleCache\\';
-					$len = strlen($prefix);
-					if (strncmp($prefix, $class, $len) !== 0) return;
-					$relative = substr($class, $len);
-					$file = rtrim($simplecache, '/').'/'.str_replace('\\', '/', $relative).'.php';
-					if (file_exists($file)) require $file;
-				});
+		$autoloader1 = DOL_DOCUMENT_ROOT.'/includes/phpoffice/phpspreadsheet/src/autoloader.php';
+		$autoloader2 = DOL_DOCUMENT_ROOT.'/includes/Psr/autoloader.php';
+		if (file_exists($autoloader1)) {
+			require_once $autoloader1;
+			if (file_exists($autoloader2)) require_once $autoloader2;
+			if (defined('PHPEXCELNEW_PATH') && file_exists(PHPEXCELNEW_PATH.'Spreadsheet.php')) {
+				require_once PHPEXCELNEW_PATH.'Spreadsheet.php';
 			}
 		}
 	}
