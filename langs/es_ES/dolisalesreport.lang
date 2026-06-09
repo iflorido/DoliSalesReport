@@ -1,0 +1,52 @@
+# Translation file - DoliSalesReport (es_ES)
+
+# Module
+ModuleDoliSalesReportName = Informes Ventas
+ModuleDoliSalesReportDesc = Informes profesionales de ventas a partir de la facturacion (incluidos tickets de TPV)
+
+# Admin
+DoliSalesReportSetup = Configuracion de DoliSalesReport
+DoliSalesReportSetupPage = Configuracion del modulo de informes de ventas
+DoliSalesReportAbout = Acerca de DoliSalesReport
+Settings = Configuracion
+About = Acerca de
+Licence = Licencia
+SetupSaved = Configuracion guardada correctamente
+DefaultLinesPerPage = Lineas por pagina por defecto
+DefaultLinesPerPageHelp = Numero de filas mostradas por pagina en los listados de resultados.
+Author = Autor
+Email = Correo
+
+# Dashboard
+SalesDashboard = Panel de ventas
+TotalHT = Total sin IVA
+TotalTTC = Total con IVA
+DistinctProducts = Productos distintos
+InvoicesCount = Nº facturas
+TotalQtySold = Unidades vendidas
+TopProductsByAmount = Top 10 productos por importe (sin IVA)
+MonthlyEvolution = Evolucion mensual (sin IVA)
+MostSoldProducts = Productos mas vendidos (unidades)
+LeastSoldProducts = Productos menos vendidos (unidades)
+GoToProductReport = Ir al informe de productos
+Refresh = Actualizar
+
+# Report
+ProductSalesReport = Ventas por producto
+GenerateReport = Generar informe
+AllProducts = Todos los productos
+AllThirdParties = Todos los terceros
+DateStart = Fecha inicio
+DateEnd = Fecha fin
+Ref = Referencia
+ProductLabel = Producto
+QtySold = Unidades vendidas
+NoSalesFound = No se han encontrado ventas para los filtros seleccionados.
+ResultsForRange = Resultados del periodo: %s
+ExportToExcel = Exportar a Excel
+Total = Total
+Period = Periodo
+GeneratedOn = Generado el
+FreeText = Texto libre
+FreeTextProductLabel = Productos sin referencia (texto libre)
+FreeTextHelp = Lineas introducidas como texto libre (habitual en tickets de TPV). No se pueden asociar a un producto concreto, por lo que se agrupan aqui.

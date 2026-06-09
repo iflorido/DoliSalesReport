@@ -1,0 +1,52 @@
+# Translation file - DoliSalesReport (en_US)
+
+# Module
+ModuleDoliSalesReportName = Sales Reports
+ModuleDoliSalesReportDesc = Professional sales reports based on issued invoices (including POS tickets)
+
+# Admin
+DoliSalesReportSetup = DoliSalesReport setup
+DoliSalesReportSetupPage = Sales report module setup
+DoliSalesReportAbout = About DoliSalesReport
+Settings = Settings
+About = About
+Licence = Licence
+SetupSaved = Setup saved successfully
+DefaultLinesPerPage = Default lines per page
+DefaultLinesPerPageHelp = Number of rows shown per page in result lists.
+Author = Author
+Email = Email
+
+# Dashboard
+SalesDashboard = Sales dashboard
+TotalHT = Total excl. tax
+TotalTTC = Total incl. tax
+DistinctProducts = Distinct products
+InvoicesCount = Invoices
+TotalQtySold = Units sold
+TopProductsByAmount = Top 10 products by amount (excl. tax)
+MonthlyEvolution = Monthly evolution (excl. tax)
+MostSoldProducts = Most sold products (units)
+LeastSoldProducts = Least sold products (units)
+GoToProductReport = Go to product report
+Refresh = Refresh
+
+# Report
+ProductSalesReport = Product sales
+GenerateReport = Generate report
+AllProducts = All products
+AllThirdParties = All third parties
+DateStart = Start date
+DateEnd = End date
+Ref = Reference
+ProductLabel = Product
+QtySold = Units sold
+NoSalesFound = No sales found for the selected filters.
+ResultsForRange = Results for period: %s
+ExportToExcel = Export to Excel
+Total = Total
+Period = Period
+GeneratedOn = Generated on
+FreeText = Free text
+FreeTextProductLabel = Products without reference (free text)
+FreeTextHelp = Lines entered as free text (common in POS tickets). They cannot be linked to a specific product, so they are grouped here.
